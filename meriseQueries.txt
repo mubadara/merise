@@ -1,0 +1,64 @@
+CREATE TABLE categories(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR (200) NOT NULL,
+	slug VARCHAR (200) NOT NULL
+);
+CREATE TABLE quizzs_list(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(200) NOT NULL,
+	slug VARCHAR(200) NOT NULL
+);
+CREATE TABLE quizz(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(200) NOT NULL,
+	slug VARCHAR(200) NOT NULL
+);
+CREATE TABLE questions(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE answers(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	answer VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE good_answers(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	good_answer VARCHAR(200) NOT NULL
+);
+
+ALTER TABLE categories
+ADD quizzListID INT;
+
+ALTER TABLE categories
+ADD CONSTRAINT FK_QuizzCategory
+FOREIGN KEY (quizzListId) REFERENCES quizzs_list(id);
+
+ALTER TABLE quizzs_list
+ADD quizzId INT;
+
+ALTER TABLE quizzs_list
+ADD CONSTRAINT FK_QuizzList
+FOREIGN KEY (quizzId) REFERENCES quizz(id);
+
+ALTER TABLE quizz 
+ADD questionsId INT;
+
+ALTER TABLE quizz
+ADD CONSTRAINT FK_questions
+FOREIGN KEY (questionsId) REFERENCES questions(id);
+
+ALTER TABLE questions
+ADD answerId INT;
+
+ALTER TABLE questions
+ADD CONSTRAINT FK_answers
+FOREIGN KEY (answerId) REFERENCES answers(id);
+
+ALTER TABLE questions
+ADD good_answerId INT;
+
+ALTER TABLE questions
+ADD CONSTRAINT FK_goodAnswer
+FOREIGN KEY (good_answerId) REFERENCES good_answers(id);
